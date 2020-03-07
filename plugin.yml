@@ -1,0 +1,11 @@
+main: me.wand555.PlayerJobs.PlayerJobs
+name: PlayerJobs
+version: 1.15.2
+depend: [Vault]
+description: Test.
+api-version: 1.13
+author: wand555
+commands:
+  jobs:
+    description: blabla
+    usage: /job
