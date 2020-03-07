@@ -7,6 +7,7 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -22,7 +23,12 @@ public class PlayerJobs extends JavaPlugin {
 	private GUIClasses gui;
 	public static HashMap<UUID, Integer> pageCurrentlyOn = new HashMap<>();
 	public static HashMap<UUID, JobStatus> filterStatus = new HashMap<>();
+	//player and target player
+	public static HashMap<UUID, UUID> overridejobs = new HashMap<>();
+	//player and clicked item
+	public static HashMap<UUID, UUID> overrideJobsItems = new HashMap<>();
 	public static final int GUI_PAGE_SIZE = 2;
+	public static final String PREFIX = ChatColor.GRAY + "[" + ChatColor.GOLD + "PlayerJobs" + ChatColor.GRAY + "]: ";
 	
 	private static Economy econ = null;
 	private static Permission perms = null;
@@ -34,8 +40,10 @@ public class PlayerJobs extends JavaPlugin {
 		gui = new GUIClasses(this);	
 		myCE = new CE(plugin, gui);
 		new GUIClickListener(this, gui);
-		System.out.println("!!!!!!!!!" + myCE.toString());
+		new RegisterValuesListener(this);
 		this.getCommand("jobs").setExecutor(myCE);	
+		this.getCommand("jobscreate").setExecutor(myCE);
+		this.getCommand("jobsoverride").setExecutor(myCE);
 		if(!setupEconomy()) {
 			log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
             getServer().getPluginManager().disablePlugin(this);
@@ -48,8 +56,6 @@ public class PlayerJobs extends JavaPlugin {
 	public void onDisable() {
 		
 	}
-	
-	
 	
 	private boolean setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
@@ -72,7 +78,6 @@ public class PlayerJobs extends JavaPlugin {
     
     private boolean setupPermissions() {
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-        System.out.println("perms: " + rsp);
         perms = rsp.getProvider();
         return perms != null;
     }

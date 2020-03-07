@@ -1,11 +1,17 @@
 package me.wand555.PlayerJobs;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.apache.commons.lang.WordUtils;
+import org.bukkit.ChatColor;
 
 public class Job {
 
@@ -38,6 +44,13 @@ public class Job {
 						.toList());
 	}
 	
+	public static boolean hasJobsCreated(UUID creator) {
+		return jobs.keySet().stream()
+				.map(u -> Job.getJobFromUUID(u))
+				.anyMatch(j -> j.getStatus() == JobStatus.AWAITING 
+					|| j.getStatus() == JobStatus.IN_PROGRESS);
+	}
+	
 	public static List<Job> getJobsFromSpecificPlayer(UUID creator) {
 		return jobs.keySet().stream()
 				.map(u -> Job.getJobFromUUID(u))
@@ -45,6 +58,24 @@ public class Job {
 						&& j.getStatus() != JobStatus.FINISHED)
 				.collect(Collectors
 						.toList());
+	}
+	
+	public static List<Job> getJobAsListFromSpecificPlayer(UUID creator, JobStatus status) {
+		if(status == JobStatus.ALL) {
+			return jobs.keySet().stream()
+					.map(u -> Job.getJobFromUUID(u))
+					.filter(j -> j.getCreator().equals(creator))
+					.collect(Collectors
+							.toList());
+		}
+		else {
+			return jobs.keySet().stream()
+					.map(u -> Job.getJobFromUUID(u))
+					.filter(j -> j.getCreator().equals(creator)
+							&& j.getStatus() == status)
+					.collect(Collectors
+							.toList());
+		}
 	}
 	
 	public static List<Job> getJobsAsList(JobStatus status) {
@@ -62,6 +93,18 @@ public class Job {
 							.toList());
 		}
 		
+	}
+	
+	public static int getJobsAsListSize(JobStatus status) {
+		if(status == JobStatus.ALL) {
+			return jobs.size();
+		}
+		else {
+			return (int) jobs.keySet().stream()
+					.map(u -> Job.getJobFromUUID(u))
+					.filter(j -> j.getStatus() == status)
+					.count();
+		}
 	}
 	
 	public static Job getJobFromUUID(UUID uuid) {
@@ -132,8 +175,9 @@ public class Job {
 
 
 
-	public String getJobDescription() {
-		return jobDescription;
+	public ArrayList<String> getJobDescription() {
+		String s = WordUtils.wrap(ChatColor.GOLD + "Description: " + ChatColor.GRAY + jobDescription, 32, "_", false);
+		return Stream.of(s.split("_")).collect(Collectors.toCollection(ArrayList::new));
 	}
 
 
