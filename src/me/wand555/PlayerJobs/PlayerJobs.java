@@ -54,7 +54,7 @@ public class PlayerJobs extends JavaPlugin {
             return;
         }
         //setupPermissions();
-        setupChat();
+        //setupChat();
 	}
 	
 	public void onDisable() {
