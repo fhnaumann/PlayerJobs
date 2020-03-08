@@ -246,7 +246,7 @@ public class GUIClasses {
 	private ItemStack createJobsCreatedItem() {
 		ItemStack item = new ItemStack(Material.GREEN_SHULKER_BOX);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("Jobs you created");
+		meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Jobs you created");
 		item.setItemMeta(meta);
 		return item;
 	}
@@ -254,7 +254,7 @@ public class GUIClasses {
 	private ItemStack createJobsAcceptedItem() {
 		ItemStack item = new ItemStack(Material.BLUE_SHULKER_BOX);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("Jobs you accepted");
+		meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Jobs you accepted");
 		item.setItemMeta(meta);
 		return item;
 	}
@@ -262,7 +262,7 @@ public class GUIClasses {
 	private ItemStack createGoBack() {
 		ItemStack item = new ItemStack(Material.BARRIER);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("Click to go back!");
+		meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Click to go back!");
 		item.setItemMeta(meta);
 		return item;
 	}
