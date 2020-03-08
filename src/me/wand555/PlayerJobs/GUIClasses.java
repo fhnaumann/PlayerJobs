@@ -233,8 +233,6 @@ public class GUIClasses {
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Filter jobs");
 		ArrayList<String> lore = new ArrayList<String>();
-		
-		lore.add("Currently filtering:");
 		lore.add((currentStatus == JobStatus.ALL ? ChatColor.GOLD + "" + ChatColor.BOLD + ">>" : "" )+ ChatColor.GRAY + JobStatus.ALL.toString());
 		lore.add((currentStatus == JobStatus.AWAITING ? ChatColor.GOLD + "" + ChatColor.BOLD + ">>" : "" )+ ChatColor.GRAY + JobStatus.AWAITING.toString());
 		lore.add((currentStatus == JobStatus.IN_PROGRESS ? ChatColor.GOLD + "" + ChatColor.BOLD + ">>" : "" )+ ChatColor.GRAY + JobStatus.IN_PROGRESS.toString());
