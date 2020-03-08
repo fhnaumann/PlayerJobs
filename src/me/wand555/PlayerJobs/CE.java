@@ -1,11 +1,9 @@
 package me.wand555.PlayerJobs;
 
-import java.util.Arrays;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -161,16 +159,19 @@ public class CE implements CommandExecutor {
 			}	
 		}	
 		if(amount > 0) {
-			//if(PlayerJobs.getEcon().has(player, player.getWorld().getName(), amount)) {
+			if(PlayerJobs.getEcon().has(player, player.getWorld().getName(), amount)) {
 				if(player.hasPermission("jobs.create")) {
 					PlayerJobs.getEcon().withdrawPlayer(player, player.getWorld().getName(), amount);
 					Job.insertNewJob(new Job(UUID.randomUUID(), player.getUniqueId(), name, amount, desc));
 					player.sendMessage(PlayerJobs.PREFIX + ChatColor.GRAY + "Successfully created the job!");
 				}		
-			//}
+			}
+			else {
+				player.sendMessage(PlayerJobs.PREFIX + ChatColor.GRAY + "You don't have enough money!");
+			}
 		}
 		else {
-			
+			player.sendMessage(PlayerJobs.PREFIX + ChatColor.GRAY + "Amount has to be greater than 0!");
 		}
 	}
 	

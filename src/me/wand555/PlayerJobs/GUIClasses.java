@@ -1,21 +1,15 @@
 package me.wand555.PlayerJobs;
 
-import java.util.Map.Entry;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerAnimationType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class GUIClasses {
 	private PlayerJobs plugin;

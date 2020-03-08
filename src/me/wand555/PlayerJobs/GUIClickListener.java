@@ -1,6 +1,7 @@
 package me.wand555.PlayerJobs;
 
 import java.util.ArrayList;
+
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -11,8 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -42,7 +41,7 @@ public class GUIClickListener implements Listener {
 								UUID uuid = UUID.fromString(ChatColor.stripColor(event.getCurrentItem().getItemMeta().getLore().get(0)).substring(8).trim());
 								Job job = Job.getJobFromUUID(uuid);
 								if(job.getStatus() != JobStatus.IN_PROGRESS) {
-									//if(!job.getCreator().equals(p.getUniqueId())) {
+									if(!job.getCreator().equals(p.getUniqueId())) {
 										if(p.hasPermission("jobs.take")) {
 											job.setWorkingPlayer(p.getUniqueId());
 											job.setStatus(JobStatus.IN_PROGRESS);
@@ -51,10 +50,10 @@ public class GUIClickListener implements Listener {
 											p.sendMessage(PlayerJobs.PREFIX + ChatColor.GRAY + "You accepted the job! Start working on it!");
 										}
 										
-									//}
-									//else {
-									//	p.sendMessage("You cannot work on your own job!");
-									//}
+									}
+									else {
+										p.sendMessage(PlayerJobs.PREFIX + ChatColor.GRAY + "You cannot work on your own job!");
+									}
 								}
 							}		
 						}

@@ -1,11 +1,8 @@
 package me.wand555.PlayerJobs;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,6 +30,16 @@ public class Job {
 		this.status = JobStatus.AWAITING;
 		this.setWorkingPlayer(null);
 	}
+	
+	public Job(UUID uuid, UUID creator, String jobName, int jobPayment, String jobDescription, JobStatus status, UUID workingPlayer) {
+		this.uuid = uuid;
+		this.creator = creator;
+		this.jobName = jobName;
+		this.jobPayment = jobPayment;
+		this.jobDescription = jobDescription;
+		this.status = status;
+		this.workingPlayer = workingPlayer;
+	} 
 	
 	public static List<Job> getJobsPlayerAccepted(UUID workingPlayer) {
 		return jobs.keySet().stream()
@@ -180,7 +187,9 @@ public class Job {
 		return Stream.of(s.split("_")).collect(Collectors.toCollection(ArrayList::new));
 	}
 
-
+	public String getJobDescriptionAsSingleString() {
+		return this.jobDescription;
+	}
 
 	public void setJobDescription(String jobDescription) {
 		this.jobDescription = jobDescription;

@@ -3,8 +3,8 @@ name: PlayerJobs
 version: 1.15.2
 depend: [Vault]
 prefix: PlayerJobs
-description: Test.
-api-version: 1.13
+description: Creates the ability to create and work on self-made jobs.
+api-version: 0.1.7
 author: wand555
 commands:
   jobs:
